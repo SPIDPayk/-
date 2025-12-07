@@ -1,1 +1,26 @@
-лабараторная №2
+#include<stdio.h>
+
+void Octal_num(int N){
+    if (N < 8){
+        
+    printf("%d", N);
+    return;    
+    }
+    else{
+        Octal_num(N / 8);
+        printf("%d", N % 8);
+    }
+    
+
+}
+
+int main(){
+    
+    int N;
+    
+    if (scanf("%d",N) != 1){printf("Wrong data type!!"); return 1;}
+    
+    Octal_num(N);
+
+    return 0;
+}
