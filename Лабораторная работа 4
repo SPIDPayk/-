@@ -1,0 +1,219 @@
+#include<stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void bubble_sort(int arr[], int len);
+
+void selection_sort(int arr[], int len);
+
+void quick_sort(int arr[], int left, int right);
+
+void fill_array(int arr[],int len, int max );
+
+void show_array(int arr[], int len);
+
+int main(){
+
+    srand(time(NULL));
+
+
+    printf("\n\narray with 10 elements");
+    int* array_10 = (int*)malloc(10 * sizeof(int));
+    if (array_10 == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    fill_array(array_10,10,2000);
+    clock_t start = clock();
+    bubble_sort(array_10,10);
+    clock_t end = clock();
+    printf("\ntime spent with bubble sort: %f",(double)(end - start) / CLOCKS_PER_SEC);
+
+    fill_array(array_10,10,2000);
+    start = clock();
+    selection_sort(array_10,10);
+    end = clock();
+    printf("\ntime spent with selection sort: %f",(double)(end - start) / CLOCKS_PER_SEC);
+
+    fill_array(array_10,10,2000);
+    start = clock();
+    quick_sort(array_10,0,9);
+    end = clock();
+    printf("\ntime spent with quick sort: %f",((double)(end - start) / CLOCKS_PER_SEC));
+
+    free(array_10);
+
+
+
+
+    printf("\n\narray with 1k elements");
+    int* array_1000 = (int*)malloc(1000 * sizeof(int));
+    if (array_1000 == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    fill_array(array_1000,1000,2000);
+    clock_t start2 = clock();
+    bubble_sort(array_1000,1000);
+    clock_t end2 = clock();
+    printf("\ntime spent with bubble sort: %f",(double)(end2 - start2) / CLOCKS_PER_SEC);
+
+    fill_array(array_1000,1000,2000);
+    start2 = clock();
+    selection_sort(array_1000,1000);
+    end2 = clock();
+    printf("\ntime spent with selection sort: %f",(double)(end2 - start2) / CLOCKS_PER_SEC);
+
+    fill_array(array_1000,1000,2000);
+    start2 = clock();
+    quick_sort(array_1000,0,999);
+    end2 = clock();
+    printf("\ntime spent with quick sort: %f",((double)(end2 - start2) / CLOCKS_PER_SEC));
+
+    free(array_1000);
+
+
+
+    
+    printf("\n\narray with 10k elements");
+    int* array_10000 = (int*)malloc(10000 * sizeof(int));
+    if (array_10000 == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    fill_array(array_10000,10000,2000);
+    clock_t start3 = clock();
+    bubble_sort(array_10000,10000);
+    clock_t end3 = clock();
+    printf("\ntime spent with bubble sort: %f",(double)(end3 - start3) / CLOCKS_PER_SEC);
+
+    fill_array(array_10000,10000,2000);
+    start3 = clock();
+    selection_sort(array_10000,10000);
+    end3 = clock();
+    printf("\ntime spent with selection sort: %f",(double)(end3 - start3) / CLOCKS_PER_SEC);
+
+    fill_array(array_10000,10000,2000);
+    start3 = clock();
+    quick_sort(array_10000,0,9999);
+    end3 = clock();
+    printf("\ntime spent with quick sort: %f",((double)(end3 - start3) / CLOCKS_PER_SEC));
+
+    free(array_10000);
+
+
+
+    printf("\n\narray with 100k elements");
+    int* array_100000 = (int*)malloc(100000 * sizeof(int));
+    if (array_100000 == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+    
+    fill_array(array_100000,100000,2000);
+    clock_t start4 = clock();
+    bubble_sort(array_100000,100000);
+    clock_t end4 = clock();
+    printf("\ntime spent with bubble sort: %f",(double)(end4 - start4) / CLOCKS_PER_SEC);
+
+    fill_array(array_100000,100000,2000);
+    start4 = clock();
+    selection_sort(array_100000,100000);
+    end4 = clock();
+    printf("\ntime spent with selection sort: %f",(double)(end4 - start4) / CLOCKS_PER_SEC);
+
+    fill_array(array_100000,100000,2000);
+    start4 = clock();
+    quick_sort(array_100000,0,99999);
+    end4 = clock();
+    printf("\ntime spent with quick sort: %f",((double)(end4 - start4) / CLOCKS_PER_SEC));
+
+    free(array_100000);
+
+    
+    return 0;
+}
+
+void bubble_sort(int arr[],int len){
+
+    for(int i = 0; i < len-1; i++){
+        for(int j =0; j<len-i-1;j++){
+            
+            if (arr[j] > arr[j+1]) {
+                int tmp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = tmp;
+            }
+        }
+    }
+}
+
+void selection_sort(int arr[], int len){
+
+    for (int i = 0; i < len; i++)
+    {
+        int min_indx = i;
+        for (int j = i+1; j < len; j++){
+            if(arr[j] < arr[min_indx]){
+                min_indx = j;
+            }
+
+        }
+        if(min_indx != i){
+            int tmp = arr[i];
+            arr[i] = arr[min_indx];
+            arr[min_indx] = tmp;
+        }
+    }
+
+}
+
+
+void quick_sort(int arr[], int left, int right){
+    if(left > right){return;}
+    
+    int pivot = arr[(left+right)/2];
+
+    int i = left;
+    int j = right;
+
+    while (i <= j)
+    {
+        while (arr[i] < pivot) {i++;}
+        while (arr[j] > pivot) {j--;}
+        
+        if (i <= j){
+            int tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+            i++;
+            j--;
+        }
+        
+    }
+    quick_sort(arr,left,j);
+    quick_sort(arr,i,right);
+    
+}
+
+void fill_array(int arr[],int len, int max ){
+
+    for (int i = 0; i < len; i++)
+    {
+        arr[i] = ( rand() % max ) - 1000;
+    }
+    
+
+}
+
+void show_array(int arr[], int len){
+
+    for (int i = 0; i < len; i++)
+    {
+        printf("%d    ",arr[i]);
+    }
+    printf("\n");  
+}
