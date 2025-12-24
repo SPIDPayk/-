@@ -3,9 +3,6 @@
 #include <string.h>
 #include "func.h"
 
-///////////////////////////////
-
-
 void print_data(Node* head){
     Node*ptr = head;
 
@@ -25,12 +22,6 @@ void print_data(Node* head){
     }
 }
 
-
-
-////////////
-
-
-
 void create_node(Node** head)
 {
     (*head) = (Node*)malloc(sizeof(Node));
@@ -43,14 +34,6 @@ void create_node(Node** head)
 
 }
 
-
-
-//////////////////////
-
-
-
-
-
 void fill_node(Node* head, char* file_name){
     FILE* f = fopen(file_name,"r");
 
@@ -61,7 +44,7 @@ void fill_node(Node* head, char* file_name){
     char* stock = (char *)malloc(15*sizeof(char)); if (stock == NULL) {printf("error with memory allocation");}
     
     Node* ptr = head;
-    
+
     while(fscanf(f,"%s %s %s %s %s",brand,type,gender,size,stock) == 5){
     strcpy(ptr->brand, brand);
     strcpy(ptr->type, type);
@@ -82,11 +65,6 @@ void fill_node(Node* head, char* file_name){
     fclose(f);
 }
 
-
-////////////////
-
-
-
 void write_data(Node* head, char*file_name){
     FILE* f = fopen(file_name,"w+");
 
@@ -98,15 +76,6 @@ void write_data(Node* head, char*file_name){
 
     fclose(f);
 }
-
-
-
-
-//////////////////////
-
-
-
-
 
 void add_element(Node* head)
 {
@@ -148,14 +117,6 @@ void add_element(Node* head)
 
 }
 
-
-
-
-////////////////////////
-
-
-
-
 void del_element(Node* head)
 {
     int indx;
@@ -185,13 +146,6 @@ void del_element(Node* head)
     free(ptr2);
     
 }
-
-
-
-/////////////////
-
-
-
 
 void change_element(Node* head)
 {
@@ -242,13 +196,6 @@ void change_element(Node* head)
 }
 
 
-
-
-//////////////////
-
-
-
-
 void sort_node(Node* head)
 {
      char* srtbrand = (char *)malloc(30*sizeof(char)); if (srtbrand == NULL) {printf("error with memory allocation");}
@@ -270,7 +217,8 @@ void sort_node(Node* head)
         if (sort_numb < 5 && sort_numb >= 1)
         {
             printf("What sort would you like to use:\ntype 1 to sort by Brand\ntype 2 to sort by Type\ntype 3 to sort by Gender\ntype 4 to sort by Size\ntype 5 to sort by Stock\n");
-            for(int i = 0; i < sort_numb; i++){
+            for(int i = 0; i < sort_numb; i++)
+            {
                 int sort_option;
                 scanf("%d",&sort_option);
                 
@@ -294,19 +242,25 @@ void sort_node(Node* head)
                     printf("\nType (in_stock) if you wanna see it in stock and (not_in_stock) if not ");
                     scanf("%s",&srtstock);
                 }
-                
+                               
+            }
+            Node* ptr = head;
+            while(ptr)
+            {
+                if (strcmp(srtbrand, ptr->brand) == 0 && strcmp(srttype,  ptr->type)  == 0 && strcmp(srtgender,ptr->gender)== 0 && strcmp(srtsize,  ptr->size)  == 0 && strcmp(srtstock, ptr->stock) == 0)
+                {
+                    printf("\n%s %s %s %s %s",ptr->brand,ptr->type,ptr->gender,ptr->size,ptr->stock);
+                }
+
+                                        //сравнение и вывод пользовательских данных с актуальными
+                    ptr = ptr->next;
             }
 
 
-        Node* ptr = head;
-        while(ptr)
-        {
-            if (strcmp(srtbrand, ptr->brand) == 0 && strcmp(srttype,  ptr->type)  == 0 && strcmp(srtgender,ptr->gender)== 0 && strcmp(srtsize,  ptr->size)  == 0 && strcmp(srtstock, ptr->stock) == 0){
-                    printf("\n%s %s %s %s %s",ptr->brand,ptr->type,ptr->gender,ptr->size,ptr->stock);
-                }
-                    //сравнение и вывод пользовательских данных с актуальными
-            ptr = ptr->next;
         }
-
-    }
+    free(srtbrand);
+    free(srttype);
+    free(srtgender);
+    free(srtsize);
+    free(srtstock);
 }
