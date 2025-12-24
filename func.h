@@ -2,7 +2,6 @@
 #include<stdlib.h>
 
 typedef struct Node {
-    struct Node* head;
     char *brand;
     char *type;
     char *gender;
@@ -28,3 +27,4 @@ void del_element(Node* head);
 void change_element(Node* head);
 
 void sort_node(Node* head);
+
